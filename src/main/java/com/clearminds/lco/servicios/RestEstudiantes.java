@@ -6,6 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
 import com.clearminds.lco.dtos.Estudiante;
+import com.clearminds.lco.excepciones.BDDException;
 
 @Path("/estudiantes")
 public class RestEstudiantes {
@@ -14,7 +15,13 @@ public class RestEstudiantes {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void insertar(Estudiante estudiante){
-		System.out.println(estudiante);
+		ServicioEstudiante se = new ServicioEstudiante();
+		try {
+			System.out.println(estudiante);
+			se.insertarEstudiante(estudiante);
+		} catch (BDDException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
